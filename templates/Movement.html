@@ -1,0 +1,73 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.js"></script>
+    <link rel="icon" type="image/x-icon" href="../Images/rumbi.webp">
+    <title>Rumbi</title>
+</head>
+<body>
+    <img  class="camera" src="/get/video/camera">
+    <div class="Sidebar" id="Sidebar">
+        <div id="objs" style="width: inherit;height: inherit;top:-32.5;position: absolute;">
+            <h1 id="title" style="width: inherit;height: 20; top: 10;left: -3; text-align: center;position: absolute;">Movement</h1>
+            <div id="page" style="top: 105; width: inherit;height: 20; text-align: center;align-items: center;position: absolute;">
+                    <div class="NavDiv">
+                        <button class="NavButton" onclick="move([0,1])"><img src="../Images/ArrowUpLeft.png" alt="↖"></button>
+                        <button class="NavButton" onclick="move(0)"><img src="../Images/ArrowUp.png" alt="⬆"></button>
+                        <button class="NavButton" onclick="move([0,3])"><img src="../Images/ArrowUpRight.png" alt="↗"></button>
+                    </div>
+                    <div class="NavDiv" style="top: 70;">
+                        <button class="NavButton" onclick="move(1)"><img src="../Images/ArrowLeft.png" alt="⬅"></button>
+                        <button class="NavButton" onclick="move(-1)"><img src="../Images/Stop.png" alt="🛑"></button>
+                        <button class="NavButton" onclick="move(3)"><img src="../Images/ArrowRight.png" alt="➡"></button>
+                    </div>
+                    <div class="NavDiv" style="top: 135;">
+                        <button class="NavButton" onclick="move([2,1])"><img src="../Images/ArrowDownLeft.png" alt="↙"></button>
+                        <button class="NavButton" onclick="move(2)"><img src="../Images/ArrowDown.png" alt="⬇"></button>
+                        <button class="NavButton" onclick="move([2,3])"><img src="../Images/ArrowDownRight.png" alt="↘"></button>
+                    </div>
+                    
+                    <div style="top: 225;left: 20;width: 85%;height: 35;">
+                        <h3 style="position: absolute;top: -33.5;left: 0;">Duration: </h3>
+                        <div style="width: 100;height: 105%;top: -2;right: 0;">
+                            <img src="/Images/inputside.png" style="float: left;position: absolute; height: 100%;">
+                            <input id="Dur" class="TextInput" type="text" placeholder="Seconds" style="text-align: right;" value="1">
+                            <img src="/Images/inputside.png" style="float: right;position: absolute; height: 100%;">
+                        </div>
+                    </div>
+
+                    <div style="top: 245; position: relative;">
+                        <h2 style="height: 20;">Action Queue</h2>
+                        <hr style="width: 75%;">
+                        <div id="Queue" style="width: 200;height: 35;left: 35;">
+                        </div>
+                        
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="UICreation.js"></script>
+    <script src="pythoncom.js"></script>
+    <script>
+        const queelemt = document.getElementById( "Queue" )
+
+        setInterval(function(){
+            queelemt.innerHTML = ""
+            
+            Queue(queelemt, "Action", "Time",-1)
+
+          
+            fetch("/get/queue/Motor")
+                .then(response => response.json())
+                .then(data => {
+                for (let i = 0;i < data.length && i < parseInt((window.innerHeight-queelemt.offsetTop-40)/46); i++)
+                {
+                    Queue(queelemt, data[i][0], data[i][1],i)
+                }
+                })
+        },2000)
+    </script>
+</body>

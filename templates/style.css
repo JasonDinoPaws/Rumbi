@@ -1,0 +1,148 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+    position: absolute;
+}
+div {
+    position: absolute;
+}
+button{ 
+        background-color: #333333;
+        border-width: 0;
+        outline: none;
+        color: white;
+        font-size: larger;
+        font-family: "Curse";
+        cursor: pointer;
+        border-radius: 5px;
+}
+img
+{
+    width: auto;
+    height: auto;
+}
+
+.Sidebar {
+    width: 275;
+    height: 100%;
+    left: 0;
+    background-color: #999999;
+}
+.SidebarButton {
+    width: 50; 
+    height: 50;
+    right: -50;
+    float: right; 
+    position: absolute;
+    bottom: 0;
+    margin: 4px 2px;
+}
+.camera {
+    width: 100%;
+    color: white;
+    height: 100%;
+    position: absolute;
+}
+
+.NavButton{
+    width: 25%;
+    height: 100%;
+    background-color: rgba(50,50,50,.4);
+    border-radius: 5px;
+}
+.NavDiv{
+    width: 90%;
+    height: 300%;
+    margin: 10px;
+    top: 5;
+    align-items: center;
+}
+.QueueDiv
+{
+    width: 100%;  
+    height: 15%;
+    justify-content: center;
+    column-count: 2;  
+    column-gap: 40px;
+    column-rule: 1px solid lightblue;
+}
+canvas {
+    width: 512px;
+    image-rendering: pixelated;
+  }
+input[type="color"]
+{
+    width: 75;
+    height: 50;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+.pixelated {
+    image-rendering: pixelated;
+}
+  
+
+
+
+/* Text font */
+@font-face { font-family: Curse; src: url('Curse_Casual.ttf'); } 
+p {
+    text-align: center;
+    text-shadow:
+    -1px -1px 0 #012258,1px -1px 0 #012258,
+    -1px 0px 0 #012258,1px 0px 0 #012258,
+    -1px 2px 0 #012258,1px 2px 0 #012258,
+    -1px 4px 0 #012258,1px 4px 0 #012258;
+    color: white;
+    font-family: Curse; 
+    font-size: 25;
+}
+h1 {
+    font-family: Curse; 
+    font-size: 50;
+    color: white;
+    text-shadow: 
+    -2px -2px 0 #012258,2px -2px 0 #012258,
+    -2px 0px 0 #012258,2px 0px 0 #012258,
+    -2px 6px 0 #012258,2px 6px 0 #012258;
+}
+h2 {
+    font-family: Curse; 
+    font-size: 40;
+    color: white;
+    text-shadow: 
+    -1px -1px 0 #012258,1px -1px 0 #012258,
+    -1px 0px 0 #012258,1px 0px 0 #012258,
+    -1px 2px 0 #012258,1px 2px 0 #012258,
+    -1px 4px 0 #012258,1px 4px 0 #012258;
+}
+h3 {
+    font-family: Curse; 
+    font-size: 30;
+    height: 10;
+    color: white;
+    text-shadow: 
+    -1px -1px 0 #012258,1px -1px 0 #012258,
+    -1px 0px 0 hsl(217, 98%, 17%),1px 0px 0 #012258,
+    -1px 2px 0 #012258,1px 2px 0 #012258,
+    -1px 4px 0 #012258,1px 4px 0 #012258;
+}
+input[type="text"]
+{
+    background-color: rgba(0,0,0,0);
+    background: url(/Images/inputout.png);
+    background-size: 3px;
+    background-position-y: 4px;
+    border: 0;
+    font-family: Curse; 
+    font-size: 30;
+    color: white;
+    width: 100%;
+    height: 100%;
+}

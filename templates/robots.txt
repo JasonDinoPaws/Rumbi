@@ -1,0 +1,5 @@
+user-agent: *
+
+disallow: /map/*
+disallow: /map/full
+disallow: /map/restricted

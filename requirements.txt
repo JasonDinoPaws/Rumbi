@@ -1,0 +1,8 @@
+RPi.GPIO
+flask
+opencv-python
+numpy
+picamera2
+pydub
+rpi-ws281x
+yt-dlp

@@ -1,0 +1,92 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.js"></script>
+    <link rel="icon" type="image/x-icon" href="../Images/rumbi.webp">
+    <title>Rumbi</title>
+</head>
+<body>
+    <img  class="camera" src="/get/video/camera">
+    <div class="Sidebar" id="Sidebar">
+        <div id="objs" style="width: inherit;height: inherit;top:-32.5;position: absolute;">
+            <h1 id="title" style="width: inherit;height: 20; top: 10;left: -3; text-align: center;position: absolute;">Sounds</h1>
+            <div id="page" style="top: 105; width: inherit;height: 20; text-align: center;align-items: center;position: absolute;">
+
+                <button onclick="Sloaded()" style="width: 90%; height: 55; position: absolute;left: 15;" id="SoundSwitch">
+                    <h3 style="top: -30;position: absolute;left: 5;">Loaded------</h3>
+                    <h3 style="right: 5;bottom: -5;position: absolute;">------Sounds</h3>
+                </button>
+
+                <div id="LoadedSounds" style="width: 100%;display: none;top: 60;"></div>
+
+                <div id="SoundInfo" style="width: 100%;top: 60;">
+                    <div style="width: 75%; height: 100%;left: 30;position: absolute;">
+                        <div>
+                            <img src="/Images/inputside.png" style="float: left;position: absolute; height: 100%;">
+                            <input id="UrlPlay" class="txt" style="text-align: center;" type="text" placeholder="Url link">
+                            <img src="/Images/inputside.png" style="float: right;position: absolute; height: 100%;">
+                        </div>
+                        <button style="width: 45%;top: 40;position: relative;background-color: #11BB77;" onclick="playlink(document.getElementById('UrlPlay'))">Submit Link</button>
+                    </div>
+                    <div style="top: 50; position: relative;">
+                        <h2 style="height: 20;">Sound Queue</h2>
+                        <hr style="width: 75%;">
+                        <div id="Queue" style="width: 250;height: 35;left: 15;">
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="UICreation.js"></script>
+    <script src="pythoncom.js"></script>
+    <script>
+        const queelemt = document.getElementById( "Queue" )
+
+
+        const switchbutton = document.getElementById("SoundSwitch")
+        const loaded = document.getElementById("LoadedSounds")
+        const normal = document.getElementById("SoundInfo")
+        let isLoaded = false
+
+        function Sloaded(){
+            isLoaded = !isLoaded
+
+            if (isLoaded) {
+                switchbutton.children[0].innerHTML="Sounds------"
+                switchbutton.children[1].innerHTML="------Queued"
+                loaded.style.display=""
+                normal.style.display="none"
+            }
+            else {
+                switchbutton.children[0].innerHTML="Loaded------"
+                switchbutton.children[1].innerHTML="------Sounds"
+                loaded.style.display="none"
+                normal.style.display="" 
+            }
+        }
+        LoadSounds(loaded)
+
+
+        setInterval(function(){
+            queelemt.innerHTML = ""
+            
+            Queue(queelemt, "Sound Name", "length",-1)
+
+          
+            fetch("/get/queue/Sounds")
+                .then(response => response.json())
+                .then(data => {
+                for (let i = 0;i < data.length && i < parseInt((window.innerHeight-queelemt.offsetTop-40)/46); i++)
+                {
+                    text = data[i][0].replace("MafiaRobot_","")
+                    text = text.replace("/tmp/Audios/","")
+                    text = text.substring(0,text.indexOf("."))
+                    Queue(queelemt, text, data[i][1],i)
+                }
+                })
+        },2000)
+    </script>
+</body>
