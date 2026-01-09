@@ -3,11 +3,11 @@ This is version 1.0 of Rumbi.
 Rumbi comes from the game A hat in time with the soul perpose to give some life to the spaceship. This is trying to give it more of a perpose. This version is slightly buggy since the all the leds need to be ran on sudo but the audio libary will sometimes work.
 
 # Parts
-Pi - https://www.amazon.com/dp/B0899VXM8F?ref=ppx_yo2ov_dt_b_fed_asin_title
-Pi Camera - https://www.amazon.com/dp/B01ER2SKFS?ref=ppx_yo2ov_dt_b_fed_asin_title
-Gearbox Motors - https://www.amazon.com/dp/B098Q1BCX5?ref=ppx_yo2ov_dt_b_fed_asin_title
-Led Strip - https://www.amazon.com/dp/B01MG49QKD?ref=ppx_yo2ov_dt_b_fed_asin_title
-Led Matrix x2 - https://www.amazon.com/dp/B0DGT58PDH?ref=ppx_yo2ov_dt_b_fed_asin_title
+- Pi - https://www.amazon.com/dp/B0899VXM8F?ref=ppx_yo2ov_dt_b_fed_asin_title
+- Pi Camera - https://www.amazon.com/dp/B01ER2SKFS?ref=ppx_yo2ov_dt_b_fed_asin_title
+- Gearbox Motors - https://www.amazon.com/dp/B098Q1BCX5?ref=ppx_yo2ov_dt_b_fed_asin_title
+- Led Strip - https://www.amazon.com/dp/B01MG49QKD?ref=ppx_yo2ov_dt_b_fed_asin_title
+- Led Matrix x2 - https://www.amazon.com/dp/B0DGT58PDH?ref=ppx_yo2ov_dt_b_fed_asin_title
 
 
 # Printing
