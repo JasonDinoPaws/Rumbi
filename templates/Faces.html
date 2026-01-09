@@ -1,0 +1,48 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.js"></script>
+    <link rel="icon" type="image/x-icon" href="../Images/rumbi.webp">
+    <title>Rumbi</title>
+</head>
+<body>
+    <img  class="camera" src="/get/video/camera">
+    <div class="Sidebar" id="Sidebar">
+        <div id="objs" style="width: inherit;height: inherit;top:-32.5;position: absolute;">
+            <h1 id="title" style="width: inherit;height: 20; top: 10;left: -3; text-align: center;position: absolute;">Face</h1>
+            <div id="page" style="top: 105; width: inherit;height: 20; text-align: center;align-items: center;position: absolute;">
+                <div style="width:  100%;height: 125;">
+                    <h3 style="top: -30;position: absolute;width: 100%;">Current Face</h3>
+                    <img class="pixelated" src="/get/lights/face" style="width: 100%;position: absolute;left: 0;top: 50;">
+                </div>
+                <div style="width: 100%;top: 120;height: 50;">
+                    <h3 style="left: 10;position: absolute;">Face LED color</h3>
+                    <input type="color" style="position: absolute;top: 25;right: 10;">
+                </div>
+                <div style="width: 100%;top: 175;">
+                    <h3 style="width: 100%;">Faces</h3>
+                    <div id="faces" style="width: 100%;align-items: center;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="UICreation.js"></script>
+    <script src="pythoncom.js"></script>
+    <script>
+        const array = ["getoff","happy","idle","ouch","question","loading","bruh","heart","stylin","mad"];
+
+        array.forEach(function(element) {
+            loadfacebutton(document.getElementById("faces"),element)
+        });
+
+        const prev = document.getElementById("preimg")
+        setInterval(function() {
+            fetch("/get/lights/face")
+                .then(response => response.blob())
+                .then(blob => {
+                    const objectURL = URL.createObjectURL(blob);
+                    prev.src = objectURL;
+                })
+        }, 5000);
+    </script>
+</body>

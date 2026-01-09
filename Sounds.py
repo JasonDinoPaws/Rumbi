@@ -1,6 +1,3 @@
-# This can't run on sudo for some reason
-# Sounds to play out of the speaker
-
 from pydub import AudioSegment
 from pydub.playback import play
 from os import listdir,walk,remove
@@ -15,7 +12,6 @@ Playing = False
 path = "".join(x+"/" for x in __file__.split("/")[:-1])+"Sounds"
 skip = False
 
-# Queue for the sounds so they dont play all at once
 def Queue():
     global AudioQueue,Playing
     Playing = True
@@ -23,7 +19,18 @@ def Queue():
         play(AudioQueue.pop(0)[2])
     Playing = False
 
-# Gets the sound from the loaded list or loads a new one
+def Loadsounds(folder:str,path:str=path):
+    for _,dirc,_ in walk(path):
+        if folder in dirc:
+            break
+    else:
+        return
+    
+    for name in listdir(f"{path}/{folder}"):
+        loaded[name] = AudioSegment.from_file(f"{path}/{folder}/{name}")
+    loadeddir.append(folder)
+
+
 def GetSound(name:str,path=path):
     if type(name) != type("f"):
         return False
@@ -46,7 +53,6 @@ def GetSound(name:str,path=path):
     
     return False
 
-# Checks if the sound exists and if it is in tmp then adds it to the queue
 def Playsound(name:str,path=path):
     global AudioQueue
     sound = GetSound(name,path)
@@ -59,7 +65,6 @@ def Playsound(name:str,path=path):
         if not Playing:
             Thread(target=Queue,daemon=True).start()
 
-# Plays any random sound that is loaded
 def random(fpath=path):
     if fpath != path:
         keys = listdir(fpath)
@@ -68,7 +73,6 @@ def random(fpath=path):
     
     Playsound(keys[randint(0,len(keys)-1)],path=fpath)
 
-# Plays all sounds that are loaded
 def PlayAll(fpath=path,delay=0):
     if fpath != path:
         keys = listdir(fpath)
@@ -79,9 +83,8 @@ def PlayAll(fpath=path,delay=0):
         Playsound(x,path=fpath)
         sleep(delay)
 
-# Loads all sounds in the sounds folder
 def LoadSounds():
     for _,dirc,_ in walk(path):
         for x in dirc:
-            GetSound(x)
+            Loadsounds(x)
             Playsound(x)

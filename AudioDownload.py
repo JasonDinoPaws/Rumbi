@@ -1,5 +1,3 @@
-# This is mainly just to download youtube videos audio given their link and saves it to a folder in tmp called Audios
-
 import yt_dlp
 from os import path,makedirs,listdir,remove,rename
 import re
@@ -8,21 +6,17 @@ from random import randint
 output_folder="/tmp/Audios"
 downQueue = []
 
-# If folder doesn't exists creates it
 if not path.exists(output_folder):
     makedirs(output_folder)
 else:
     for x in listdir(output_folder):
         remove(f"{output_folder}/{x}")
 
-# the format to save the videos
 ydl_opts = {
     'format': 'bestaudio/best',  # Download the best audio quality
     'extractaudio': True,  # Extract audio
     'outtmpl': path.join(output_folder, '%(title)s.%(ext)s'),  # Save file in the specified output folder
 }
-
-# Downloads only 1 video and returns its path
 def Youtube(url:str):
     if re.search(r"https://(www|music).youtube.com/watch?",url):
         arlist = re.search(r"&list=",url)
@@ -36,11 +30,12 @@ def Youtube(url:str):
             file_extension = info_dict.get('ext', 'mp3')
             ydl.download([url])
         
-        return f"{output_folder}/{video_title}.{file_extension}"
+        nname = f"{output_folder}/{randint(0,99999999)}.{file_extension}"
+        rename(f"{output_folder}/{video_title}.{file_extension}",nname)
+        return nname
     return None
 
 
-# Check if the video is a youtube video and sends it to download and puts it in a queue if there is more than 1
 def DownloadAudio(url:str):
     retu = None
     name = f"{len(downQueue)}|{url}"

@@ -1,9 +1,6 @@
-# There was ment to be more but i didn;t have time
-
 from enum import Enum
 from random import randint
 
-# This is a list of aniamtions 
 class Animations(Enum):
     Loading1 = {"Anim":[[1,0,-1]], "speed":.075}
     Loading2 = {"Anim":[[-1,0,1, 13,14,15]], "speed":.075}

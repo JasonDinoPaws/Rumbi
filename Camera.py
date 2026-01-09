@@ -1,9 +1,6 @@
-# This is to get the camera feed from the pi camera and makes it into a bytes
-
 import cv2
 from picamera2 import Picamera2
 import numpy as np
-
 
 class Camera:
     def __init__(self,width=1640,hight=1232,fl=False,ftype=".jpg"):

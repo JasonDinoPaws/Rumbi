@@ -1,6 +1,3 @@
-# Inorder to run this you need to be sudo to start
-# Theses leds also only like pin 18 for some reason
-
 from rpi_ws281x import PixelStrip, Color
 import RPi.GPIO as GPIO
 from time import sleep
@@ -10,7 +7,6 @@ from threading import Thread
 from Enums import Animations
 
 
-# Setup
 rgb = [80,20,50]
 path = "".join(x+"/" for x in __file__.split("/")[:-1])+"Images"
 GPIO.setwarnings(False)
@@ -24,18 +20,14 @@ brightness = 15
 MainStrip = PixelStrip(pixcount,pin,freq, dms, invert, brightness)
 MainStrip.begin()
 
-# Checks if the given value is a int and if it is between 0 and 255 else uses the default one
 def IsValidColor(color,value):
-    if isinstance(value, str) and value.isdigit():
+    if type(value) == type("str") and value.isdigit():
         value = int(value)
-    else:
+    elif type(value) != type(0):
         value = rgb[color]
 
-    if int(value) >= 0 and int(value) < 256:
-     return value
+    return value
 
-
-# Checks if the the value is the same as defult
 def CheckValue(AnimData,id,default,types=None):
     has = id in AnimData
     if types == None:
@@ -49,7 +41,6 @@ def CheckValue(AnimData,id,default,types=None):
 
     return default
 
-# Plays any anatiom from the enum Animataions
 def play(slef,Anim:Animations,Repeat,R,G,B):
     global MainStrip
     AnimData = Anim.value
@@ -87,7 +78,6 @@ def play(slef,Anim:Animations,Repeat,R,G,B):
 
         sleep(speed)
 
-# Changes the color of the pixel in the MainStrip
 def ColorPixel(num, Colors=rgb, Show=False):
     num = int(num)
     R = IsValidColor(0,Colors[0])
@@ -99,10 +89,7 @@ def ColorPixel(num, Colors=rgb, Show=False):
         if Show:
             MainStrip.show()
 
-
-# For any leds in a grid basically 
 class Matrix:
-    # Inisualization for the grid, makes sure that all the leds work and is the correct rotation
     def __init__(self, rows=8, cols=32, pin=18, invert = False, rotation=0, flip=False):
         global MainStrip,pixcount
         self.start = pixcount
@@ -146,20 +133,22 @@ class Matrix:
             sleep(.005)
             self.Clear()
     
-    # The matrix it's self pixel and then calls the main with the correct indexing
     def ColorPixel(self, num, Colors=rgb, Show=False):
         num = int(num)
         if num > -1 and num < self.count:
             ColorPixel(self.start+num,Colors,Show)
 
-    # Makes all pixel blank
     def Clear(self):
         global MainStrip
         for x in range(self.count):
             self.ColorPixel(x,[0,0,0])
         MainStrip.show()
 
-    # Given a png or a np matrix colors them
+
+    def ShowText(self,text:str,R=None,G=None,B=None):
+        pass
+
+
     def ShowImage(self,image_name, fpath:str=path, R=None,G=None,B=None):
         global MainStrip
         print(f"{fpath}/{image_name}")
@@ -185,23 +174,20 @@ class Matrix:
 
         MainStrip.show()
 
-    # Clears all
+
     def StopAnimation(self):
         self.animation = ""
         self.Clear()
 
-    # Plays a animaton given the enum
     def PlayAnimation(self,Animation:Animations,Repeat=True,R=80,G=20,B=50):
         if self.animation != "":
             self.StopAnimation()
 
         self.animation = Animation
         Thread(target=play,args=(self,Animation,Repeat,R,G,B),daemon=True).start()
-    
-
-# Basically any free flowing leds weither in a line or 1 by 1   
+        
 class Strip():
-    # Inisualization for the strip, makes sure that all the leds work
+
     def __init__(self, count=10,pin=18, invert = False):
         global MainStrip,pixcount
         print(f"New Pixel Strip at {pixcount}")
@@ -222,7 +208,6 @@ class Strip():
         sleep(.1)
         pass
 
-    # The matrix it's self pixel and then calls the main with the correct indexing
     def ColorPixel(self, num, Colors=rgb,overflow=True, Show=False):
         num = int(num)
         if overflow:
@@ -234,26 +219,22 @@ class Strip():
         if num > -1 and num < self.count:
             ColorPixel(self.start+num,Colors,Show)
 
-    # Makes all pixel blank
     def Clear(self):
         global MainStrip
         for x in range(self.count):
             self.ColorPixel(x,[0,0,0])
         MainStrip.show()
 
-    # Colors all pixels the same color
     def ColorAll(self,R=80,G=20,B=50):
         for x in range(self.count):
             self.ColorPixel(x,[R,G,B])
         MainStrip.show()
         self.animation = "Animations.Full"
-
-    # Clears all
+    
     def StopAnimation(self):
         self.animation =  "Animations.Off"
         self.Clear()
 
-    # Plays a animaton given the enum
     def PlayAnimation(self,Animation:Animations,Repeat=True,R=80,G=20,B=50):
         if self.animation != "":
             self.StopAnimation()
